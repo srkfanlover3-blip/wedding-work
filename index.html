@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lokesh & Komal | Royal Wedding Invitation</title>
+  <meta name="description" content="You are cordially invited to celebrate the royal wedding ceremonies of Lokesh & Komal at Tivoli Lotus Court, Noida." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Rozha+One&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>" />
+
+  <!-- 1. Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Custom Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            cursive: ['"Great Vibes"', 'cursive'],
+            alex: ['"Alex Brush"', 'cursive'],
+            cinzel: ['"Cinzel Decorative"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            sanskrit: ['"Rozha One"', 'serif'],
+          },
+          colors: {
+            cream: {
+              50: '#FDFBF7',
+              100: '#FAF6EF',
+              200: '#F5EFE3',
+              300: '#ECE2CF',
+            },
+            gold: {
+              50: '#FCF9EE',
+              100: '#F8F1D6',
+              200: '#EEDDA9',
+              300: '#E4C779',
+              400: '#D5AD46',
+              500: '#C09325',
+              600: '#9E7417',
+              700: '#7E5A13',
+              800: '#644514',
+              900: '#4D3412',
+            },
+            maroon: {
+              50: '#FCF2F4',
+              100: '#F9E4E7',
+              200: '#F4CBD1',
+              300: '#EAA3AD',
+              400: '#DC7181',
+              500: '#C54357',
+              600: '#A4273C',
+              700: '#7F192B',
+              800: '#5F101F',
+              900: '#480B16',
+              950: '#2C050C',
+            },
+          },
+          boxShadow: {
+            'gold-soft': '0 10px 25px -5px rgba(192, 147, 37, 0.2), 0 8px 10px -6px rgba(192, 147, 37, 0.15)',
+            'polaroid': '0 12px 28px -4px rgba(74, 21, 28, 0.15), 0 4px 10px -2px rgba(74, 21, 28, 0.1)',
+            'wax-seal': 'inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 6px 16px rgba(138, 38, 20, 0.45), 0 0 25px rgba(212, 175, 55, 0.3)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- 2. React 18 & ReactDOM 18 CDNs -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- 3. Babel Standalone CDN -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- 4. Framer Motion CDN -->
+  <script src="https://unpkg.com/framer-motion@11.11.17/dist/framer-motion.js"></script>
+
+  <!-- 5. Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      color: #480B16;
+      background-color: #FAF6EF;
+    }
+
+    body {
+      background-color: #FAF6EF;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF6EF;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #D5AD46, #7E5A13);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #7E5A13;
+    }
+
+    /* Gold gradient text */
+    .text-gold-gradient {
+      background: linear-gradient(135deg, #B38728 0%, #FBF5B7 25%, #DAA520 50%, #AA771C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Wax seal styling */
+    .gold-wax-seal {
+      background: radial-gradient(circle at 35% 35%, #FFF2C2 0%, #E5BE53 35%, #B7871B 70%, #68490B 100%);
+      box-shadow: 
+        inset 0 3px 6px rgba(255, 255, 255, 0.6),
+        inset 0 -4px 6px rgba(77, 52, 18, 0.6),
+        0 10px 25px rgba(120, 85, 20, 0.4),
+        0 0 24px rgba(245, 208, 105, 0.5);
+    }
+
+    /* Envelope 3D styling */
+    .envelope-perspective {
+      perspective: 1200px;
+    }
+
+    .envelope-flap {
+      transform-origin: top center;
+      transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Fallback petal keyframe */
+    @keyframes petalFall {
+      0% {
+        transform: translateY(-50px) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.85;
+      }
+      50% {
+        transform: translateY(50vh) translateX(25px) rotate(180deg);
+      }
+      90% {
+        opacity: 0.85;
+      }
+      100% {
+        transform: translateY(105vh) translateX(-20px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#FAF6EF] text-[#480B16] antialiased selection:bg-[#E5C158]/30 selection:text-[#58111A]">
+
+  <!-- 2. Root Element -->
+  <div id="root"></div>
+
+  <!-- 3. React JSX Script (Babel Standalone) -->
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
+    const motion = (window.Motion && window.Motion.motion) ? window.Motion.motion : null;
+    const AnimatePresence = (window.Motion && window.Motion.AnimatePresence) ? window.Motion.AnimatePresence : React.Fragment;
+
+    // --- SVG Motifs & Icons ---
+    const GaneshaLineArt = ({ className = "w-24 h-24 text-gold-500" }) => (
+      <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+        <defs>
+          <linearGradient id="ganeshaGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#C09325" />
+            <stop offset="50%" stopColor="#E4C779" />
+            <stop offset="100%" stopColor="#7E5A13" />
+          </linearGradient>
+        </defs>
+        <path d="M60 22 C60 16, 60 14, 60 10" stroke="url(#ganeshaGold)" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M55 14 Q60 18 65 14" stroke="url(#ganeshaGold)" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="60" cy="19" r="1.5" fill="#991B2D" />
+        <path d="M48 28 C50 18, 70 18, 72 28" stroke="url(#ganeshaGold)" strokeWidth="2" strokeLinecap="round" />
+        <path d="M52 24 L60 15 L68 24" stroke="url(#ganeshaGold)" strokeWidth="1.8" strokeLinejoin="round" />
+        <path d="M60 28 C64 34, 68 42, 67 52 C66 64, 52 70, 52 78 C52 84, 58 87, 63 87 C70 87, 74 81, 74 74 C74 71, 71 69, 68 70 C65 71, 65 75, 68 76" stroke="url(#ganeshaGold)" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M49 32 C35 34, 30 48, 38 60 C42 66, 50 66, 53 64" stroke="url(#ganeshaGold)" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M71 32 C85 34, 90 48, 82 60 C78 66, 70 66, 67 64" stroke="url(#ganeshaGold)" strokeWidth="2.2" strokeLinecap="round" />
+        <path d="M50 44 Q54 42 57 45" stroke="url(#ganeshaGold)" strokeWidth="2" strokeLinecap="round" />
+        <path d="M63 45 Q66 42 70 44" stroke="url(#ganeshaGold)" strokeWidth="2" strokeLinecap="round" />
+        <path d="M55 58 L52 61" stroke="url(#ganeshaGold)" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M65 58 L71 63" stroke="url(#ganeshaGold)" strokeWidth="2.5" strokeLinecap="round" />
+        <ellipse cx="68" cy="74" rx="3.5" ry="4" fill="url(#ganeshaGold)" />
+        <path d="M32 78 C40 92, 80 92, 88 78" stroke="url(#ganeshaGold)" strokeWidth="1.5" strokeDasharray="2 3" strokeLinecap="round" />
+      </svg>
+    );
+
+    const OrnateCorner = ({ className = "w-14 h-14 text-gold-500", position = "top-left" }) => {
+      const rotation = {
+        "top-left": "rotate-0",
+        "top-right": "rotate-90",
+        "bottom-right": "rotate-180",
+        "bottom-left": "-rotate-90",
+      }[position] || "";
+
+      return (
+        <svg viewBox="0 0 100 100" fill="none" className={`${className} ${rotation}`}>
+          <defs>
+            <linearGradient id="cornerGold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#C09325" />
+              <stop offset="100%" stopColor="#E4C779" />
+            </linearGradient>
+          </defs>
+          <path d="M6 94 V20 C6 12, 12 6, 20 6 H94" stroke="url(#cornerGold)" strokeWidth="2" strokeLinecap="round" />
+          <path d="M14 94 V26 C14 19, 19 14, 26 14 H94" stroke="url(#cornerGold)" strokeWidth="1" strokeOpacity="0.6" strokeLinecap="round" />
+          <path d="M6 30 C18 30, 30 18, 30 6" stroke="url(#cornerGold)" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="20" cy="20" r="3" fill="url(#cornerGold)" />
+          <path d="M26 40 C34 32, 32 34, 40 26" stroke="url(#cornerGold)" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="38" cy="38" r="2" fill="url(#cornerGold)" />
+        </svg>
+      );
+    };
+
+    const OrnateDivider = ({ className = "my-6" }) => (
+      <div className={`flex items-center justify-center gap-3 ${className}`}>
+        <div className="h-[1px] w-16 sm:w-28 bg-gradient-to-r from-transparent via-gold-400 to-gold-600" />
+        <svg className="w-5 h-5 text-gold-500" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" />
+        </svg>
+        <div className="h-[1px] w-16 sm:w-28 bg-gradient-to-l from-transparent via-gold-400 to-gold-600" />
+      </div>
+    );
+
+    const MandalaWatermark = ({ className = "w-80 h-80 opacity-5 pointer-events-none" }) => (
+      <svg viewBox="0 0 200 200" fill="none" className={className}>
+        <circle cx="100" cy="100" r="90" stroke="#C09325" strokeWidth="1" strokeDasharray="3 3" />
+        <circle cx="100" cy="100" r="75" stroke="#C09325" strokeWidth="1.5" />
+        <circle cx="100" cy="100" r="50" stroke="#C09325" strokeWidth="1" />
+        <circle cx="100" cy="100" r="30" stroke="#C09325" strokeWidth="1.5" />
+        <circle cx="100" cy="100" r="10" fill="#C09325" />
+        {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+          <g key={i} transform={`rotate(${angle} 100 100)`}>
+            <path d="M100 25 C92 45, 92 65, 100 70 C108 65, 108 45, 100 25 Z" stroke="#C09325" strokeWidth="1" fill="#FAF6EF" fillOpacity="0.3" />
+            <circle cx="100" cy="40" r="3" fill="#C09325" />
+          </g>
+        ))}
+      </svg>
+    );
+
+    // --- Inline Icon Helpers ---
+    const IconHeart = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+      </svg>
+    );
+
+    const IconCalendar = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>
+      </svg>
+    );
+
+    const IconClock = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+    );
+
+    const IconMapPin = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+      </svg>
+    );
+
+    const IconSparkles = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+        <path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>
+      </svg>
+    );
+
+    const IconMusic = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      </svg>
+    );
+
+    const IconVolume2 = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+      </svg>
+    );
+
+    const IconVolumeX = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="22" x2="16" y1="9" y2="15"/><line x1="16" x2="22" y1="9" y2="15"/>
+      </svg>
+    );
+
+    const IconNavigation = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+      </svg>
+    );
+
+    const IconCheck = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    );
+
+    const IconCopy = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+      </svg>
+    );
+
+    const IconPhone = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+    );
+
+    const IconMessageSquare = ({ className = "w-4 h-4" }) => (
+      <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    );
+
+    // --- Falling Petals Component ---
+    const FallingPetals = ({ enabled = true }) => {
+      const petals = useMemo(() => {
+        return Array.from({ length: 20 }).map((_, i) => ({
+          id: i,
+          left: `${Math.floor(Math.random() * 95) + 2}%`,
+          delay: `${(Math.random() * 8).toFixed(1)}s`,
+          duration: `${(10 + Math.random() * 8).toFixed(1)}s`,
+          size: 16 + Math.random() * 12,
+          isRose: i % 3 !== 0,
+        }));
+      }, []);
+
+      if (!enabled) return null;
+
+      return (
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-20">
+          {petals.map((p) => (
+            <div
+              key={p.id}
+              style={{
+                position: 'fixed',
+                top: '-50px',
+                left: p.left,
+                animation: `petalFall ${p.duration} linear ${p.delay} infinite`,
+              }}
+            >
+              <svg width={p.size} height={p.size * 1.3} viewBox="0 0 30 40" fill="none">
+                <path
+                  d="M15 0 C25 8, 30 22, 22 35 C15 42, 6 36, 3 28 C-1 18, 5 6, 15 0 Z"
+                  fill={p.isRose ? '#BE123C' : '#F59E0B'}
+                  opacity="0.85"
+                />
+              </svg>
+            </div>
+          ))}
+        </div>
+      );
+    };
+
+    // --- Ambient Music Player (Synthesized Flute / Shehnai) ---
+    const MusicPlayer = () => {
+      const [isPlaying, setIsPlaying] = useState(false);
+      const audioCtxRef = useRef(null);
+      const intervalRef = useRef(null);
+      const gainNodeRef = useRef(null);
+
+      const notes = [261.63, 293.66, 329.63, 369.99, 392.00, 440.00, 493.88, 523.25];
+      const melody = [0, 2, 4, 3, 2, 4, 6, 7, 6, 4, 2, 0, 4, 6, 7, 6, 7, 4, 2, 0, 2, 4, 2, 0];
+
+      const playNote = (freq, duration = 1.2) => {
+        if (!audioCtxRef.current) return;
+        const ctx = audioCtxRef.current;
+        const osc = ctx.createOscillator();
+        const noteGain = ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+        noteGain.gain.setValueAtTime(0.001, ctx.currentTime);
+        noteGain.gain.exponentialRampToValueAtTime(0.07, ctx.currentTime + 0.2);
+        noteGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+        osc.connect(noteGain);
+        noteGain.connect(gainNodeRef.current);
+
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      };
+
+      const startMusic = () => {
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (!audioCtxRef.current) {
+            audioCtxRef.current = new AudioContext();
+            gainNodeRef.current = audioCtxRef.current.createGain();
+            gainNodeRef.current.gain.value = 0.5;
+            gainNodeRef.current.connect(audioCtxRef.current.destination);
+          }
+          if (audioCtxRef.current.state === 'suspended') {
+            audioCtxRef.current.resume();
+          }
+
+          let noteIdx = 0;
+          playNote(130.81, 4.0);
+
+          intervalRef.current = setInterval(() => {
+            const noteIndexInScale = melody[noteIdx % melody.length];
+            playNote(notes[noteIndexInScale], 1.6);
+            if (noteIdx % 4 === 0) playNote(130.81, 3.0);
+            noteIdx++;
+          }, 700);
+
+          setIsPlaying(true);
+        } catch (e) {
+          console.warn('Audio autoplay prevented:', e);
+        }
+      };
+
+      const stopMusic = () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+        if (audioCtxRef.current && audioCtxRef.current.state === 'running') {
+          audioCtxRef.current.suspend();
+        }
+        setIsPlaying(false);
+      };
+
+      return (
+        <div className="fixed bottom-6 right-6 z-40">
+          <button
+            onClick={() => isPlaying ? stopMusic() : startMusic()}
+            type="button"
+            className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-cream-50/95 backdrop-blur-md border border-gold-400 shadow-lg text-maroon-800 hover:scale-105 active:scale-95 transition-all"
+          >
+            {isPlaying ? <IconVolume2 className="w-4 h-4 text-gold-600 animate-pulse" /> : <IconVolumeX className="w-4 h-4 text-maroon-700/60" />}
+            <span className="text-xs font-serif font-bold text-maroon-900 flex items-center gap-1.5 uppercase tracking-wider">
+              <IconMusic className="w-3.5 h-3.5 text-gold-600" />
+              {isPlaying ? "Music On" : "Wedding Tune"}
+            </span>
+          </button>
+        </div>
+      );
+    };
+
+    // --- Section 1: Splash Screen (Envelope Reveal) ---
+    const SplashScreen = ({ onOpen, isOpen }) => {
+      const [opening, setOpening] = useState(false);
+
+      const handleReveal = () => {
+        if (opening) return;
+        setOpening(true);
+
+        if (window.confetti) {
+          window.confetti({
+            particleCount: 80,
+            spread: 90,
+            origin: { y: 0.6 },
+            colors: ['#C09325', '#E4C779', '#991B2D', '#F4CBD1', '#FAF6EF'],
+          });
+        }
+
+        setTimeout(() => {
+          onOpen();
+        }, 1600);
+      };
+
+      if (isOpen) return null;
+
+      return (
+        <div className={`fixed inset-0 z-50 flex items-center justify-center bg-[#2B070D]/95 backdrop-blur-md p-4 transition-all duration-700 ${opening ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+          <div className="relative w-full max-w-md sm:max-w-lg aspect-[1.35/1] flex items-center justify-center">
+            
+            {/* Envelope Box */}
+            <div className="relative w-full h-full bg-[#FAF5EC] rounded-2xl shadow-2xl border-2 border-gold-300 overflow-hidden flex flex-col items-center justify-between p-6 sm:p-8">
+              
+              <OrnateCorner position="top-left" className="absolute top-2 left-2 w-12 h-12 text-gold-500 opacity-80" />
+              <OrnateCorner position="top-right" className="absolute top-2 right-2 w-12 h-12 text-gold-500 opacity-80" />
+              <OrnateCorner position="bottom-left" className="absolute bottom-2 left-2 w-12 h-12 text-gold-500 opacity-80" />
+              <OrnateCorner position="bottom-right" className="absolute bottom-2 right-2 w-12 h-12 text-gold-500 opacity-80" />
+
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <MandalaWatermark className="w-72 h-72 opacity-10 text-gold-600" />
+              </div>
+
+              {/* Inside card */}
+              <div className={`absolute inset-x-8 top-6 bottom-6 bg-white/95 rounded-xl border border-gold-300 shadow-md p-6 flex flex-col items-center justify-center text-center transition-all duration-1000 ${opening ? '-translate-y-20 opacity-100' : 'translate-y-0 opacity-90'}`}>
+                <span className="text-[11px] uppercase tracking-[0.25em] text-gold-700 font-bold mb-1">
+                  ॥ श्री गणेशाय नमः ॥
+                </span>
+                <h2 className="font-serif text-2xl sm:text-3xl text-maroon-900 font-bold">
+                  Wedding Invitation
+                </h2>
+                <div className="font-alex text-4xl sm:text-5xl text-gold-600 my-1">
+                  Lokesh & Komal
+                </div>
+                <p className="text-[11px] text-maroon-700 tracking-widest uppercase font-semibold">
+                  19th & 27 - 29 April 2026
+                </p>
+              </div>
+
+              {/* Top Flap */}
+              <div className={`envelope-flap absolute top-0 inset-x-0 h-1/2 flex items-start justify-center origin-top pointer-events-none ${opening ? 'flap-open' : ''}`}>
+                <div className="w-full h-full bg-gradient-to-b from-[#F2E8D5] to-[#E9DCBF] border-b-2 border-gold-400/70 shadow-lg" style={{ clipPath: 'polygon(0 0, 100% 0, 50% 100%)' }} />
+              </div>
+
+              {/* Wax Seal Center Button */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+                <button
+                  onClick={handleReveal}
+                  type="button"
+                  className="relative group cursor-pointer focus:outline-none transition-transform hover:scale-105 active:scale-95"
+                  aria-label="Tap To Reveal Wedding Invitation"
+                >
+                  <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full gold-wax-seal flex items-center justify-center border-4 border-[#8B6214] transition-all">
+                    <div className="absolute inset-1.5 rounded-full border-2 border-dashed border-[#FFF3C4]/70" />
+                    <div className="text-center select-none">
+                      <span className="block font-alex text-3xl sm:text-4xl font-bold text-[#4A0E17] drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)]">
+                        L & K
+                      </span>
+                      <span className="block text-[9px] uppercase tracking-[0.25em] text-[#69121E] font-bold mt-0.5">
+                        Royal Union
+                      </span>
+                    </div>
+                  </div>
+                </button>
+
+                <div onClick={handleReveal} className="mt-6 flex flex-col items-center gap-1.5 cursor-pointer">
+                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cream-100/95 border border-gold-400 shadow-md">
+                    <IconHeart className="w-3.5 h-3.5 text-maroon-600 fill-maroon-600" />
+                    <span className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-maroon-900 font-serif">
+                      Tap To Reveal
+                    </span>
+                    <IconSparkles className="w-3.5 h-3.5 text-gold-600" />
+                  </div>
+                  <span className="text-[11px] text-maroon-700/80 font-medium tracking-wide">
+                    Touch the golden seal to enter the invitation
+                  </span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      );
+    };
+
+    // --- Section 2: Hero Section (The Blessings) ---
+    const HeroSection = () => {
+      const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+      useEffect(() => {
+        const targetDate = new Date('2026-04-19T10:00:00+05:30').getTime();
+        const updateCountdown = () => {
+          const now = new Date().getTime();
+          const diff = targetDate - now;
+          if (diff > 0) {
+            setTimeLeft({
+              days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+              hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+              minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+              seconds: Math.floor((diff % (1000 * 60)) / 1000),
+            });
+          }
+        };
+        updateCountdown();
+        const interval = setInterval(updateCountdown, 1000);
+        return () => clearInterval(interval);
+      }, []);
+
+      return (
+        <section id="blessings" className="relative min-h-screen py-16 px-4 flex flex-col items-center justify-center">
+          <div className="absolute top-10 -left-20 pointer-events-none">
+            <MandalaWatermark className="w-96 h-96 opacity-10 text-gold-500" />
+          </div>
+          <div className="absolute bottom-10 -right-20 pointer-events-none">
+            <MandalaWatermark className="w-96 h-96 opacity-10 text-gold-500" />
+          </div>
+
+          <div className="relative w-full max-w-2xl bg-cream-50/90 backdrop-blur-sm rounded-3xl border-2 border-gold-300/80 shadow-2xl p-6 sm:p-12 text-center">
+            <OrnateCorner position="top-left" className="absolute top-3 left-3 w-12 h-12 text-gold-500" />
+            <OrnateCorner position="top-right" className="absolute top-3 right-3 w-12 h-12 text-gold-500" />
+            <OrnateCorner position="bottom-left" className="absolute bottom-3 left-3 w-12 h-12 text-gold-500" />
+            <OrnateCorner position="bottom-right" className="absolute bottom-3 right-3 w-12 h-12 text-gold-500" />
+
+            {/* Ganesha Line Art */}
+            <div className="flex flex-col items-center justify-center mb-4">
+              <div className="p-2 rounded-full bg-gold-50/80 border border-gold-200 shadow-inner">
+                <GaneshaLineArt className="w-20 h-20 sm:w-24 sm:h-24" />
+              </div>
+              <span className="text-xs uppercase tracking-[0.35em] text-gold-700 font-semibold mt-3">
+                ॥ श्री गणेशाय नमः ॥
+              </span>
+            </div>
+
+            {/* Sanskrit Shloka */}
+            <div className="mb-6 space-y-1">
+              <p className="font-sanskrit text-base sm:text-lg md:text-xl text-maroon-800 leading-relaxed">
+                वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।<br />
+                निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥
+              </p>
+              <p className="text-xs text-maroon-700/70 italic max-w-md mx-auto pt-1 font-serif">
+                "May Lord Ganesha remove all obstacles and shower his eternal blessings upon this auspicious union."
+              </p>
+            </div>
+
+            <OrnateDivider className="my-5" />
+
+            <p className="text-xs sm:text-sm font-serif italic text-maroon-800 tracking-wide mb-8 max-w-lg mx-auto">
+              With the blessings of the Almighty, our revered ancestors & our respected elders, we joyfully invite you to celebrate the wedding ceremony of
+            </p>
+
+            {/* Couple Names */}
+            <div className="space-y-6 sm:space-y-8 my-6">
+              <div>
+                <h1 className="font-alex text-5xl sm:text-7xl text-maroon-900 drop-shadow-sm">
+                  Lokesh
+                </h1>
+                <p className="text-xs sm:text-sm text-maroon-800/80 font-serif mt-1 font-medium tracking-wide">
+                  Son of Smt. Sunita & Shri Rajendra Prasad
+                </p>
+              </div>
+
+              <div className="flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-gold-100 border border-gold-300 shadow-sm flex items-center justify-center">
+                  <span className="font-alex text-3xl text-gold-700 font-bold -mt-1">&</span>
+                </div>
+              </div>
+
+              <div>
+                <h2 className="font-alex text-5xl sm:text-7xl text-maroon-900 drop-shadow-sm">
+                  Komal
+                </h2>
+                <p className="text-xs sm:text-sm text-maroon-800/80 font-serif mt-1 font-medium tracking-wide">
+                  Daughter of Smt. Rekha & Shri Suresh Sharma
+                </p>
+              </div>
+            </div>
+
+            <OrnateDivider className="my-6" />
+
+            <div className="space-y-4">
+              <div className="inline-block px-5 py-2.5 rounded-full bg-gold-100/90 border border-gold-400 shadow-sm">
+                <span className="font-serif text-sm sm:text-base font-bold text-maroon-900 tracking-wide flex items-center justify-center gap-2">
+                  <IconCalendar className="w-4 h-4 text-gold-600" />
+                  The Big Day — Sunday, 19th April 2026
+                  <IconSparkles className="w-4 h-4 text-gold-600" />
+                </span>
+              </div>
+
+              <p className="font-alex text-3xl sm:text-4xl text-gold-700">
+                We're Getting Married!
+              </p>
+
+              {/* Countdown Clock */}
+              <div className="pt-4 max-w-md mx-auto">
+                <p className="text-[11px] uppercase tracking-widest text-maroon-700/70 font-semibold mb-2">
+                  Countdown to Forever
+                </p>
+                <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
+                  {[
+                    { label: 'Days', value: timeLeft.days },
+                    { label: 'Hours', value: timeLeft.hours },
+                    { label: 'Mins', value: timeLeft.minutes },
+                    { label: 'Secs', value: timeLeft.seconds },
+                  ].map((item, idx) => (
+                    <div key={idx} className="bg-cream-100/80 rounded-xl p-2.5 border border-gold-300 shadow-sm">
+                      <span className="block font-serif text-xl sm:text-2xl font-bold text-maroon-900">
+                        {String(item.value).padStart(2, '0')}
+                      </span>
+                      <span className="block text-[10px] uppercase tracking-wider text-gold-700 font-medium">
+                        {item.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      );
+    };
+
+    // --- Section 3: Our Moments & Venue ---
+    const MomentsAndVenue = () => {
+      const [copied, setCopied] = useState(false);
+      const [activePhoto, setActivePhoto] = useState(0);
+
+      const photos = [
+        {
+          src: 'assets/couple-main.jpg',
+          fallback: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=80',
+          caption: 'Two hearts, one soul • Our journey begins',
+          subtitle: 'Classic Elegance',
+        },
+        {
+          src: 'assets/couple-sangeet.jpg',
+          fallback: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=80',
+          caption: 'Dancing under the stars, laughing into forever',
+          subtitle: 'Festive Vibes',
+        },
+        {
+          src: 'assets/couple-traditional.jpg',
+          fallback: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80',
+          caption: 'Wrapped in traditions, blessed by pure love',
+          subtitle: 'Royal Heritage',
+        },
+      ];
+
+      const venueAddress = "Tivoli Lotus Court, Sector 117 Main Rd, Noida, Uttar Pradesh 201304";
+      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueAddress)}`;
+
+      const handleCopy = () => {
+        navigator.clipboard.writeText(venueAddress);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      };
+
+      return (
+        <section id="venue" className="relative py-20 px-4 max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <span className="text-xs uppercase tracking-[0.3em] text-gold-700 font-semibold">
+              Memories & Destination
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl text-maroon-900 font-semibold mt-1">
+              Our Moments & Cherished Venue
+            </h2>
+            <OrnateDivider className="my-4" />
+            <p className="text-sm sm:text-base font-serif italic text-maroon-800/80 max-w-xl mx-auto">
+              "Every love story is beautiful, but ours is our favorite. Join us where our new chapter begins."
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            {/* Polaroid Frame */}
+            <div className="lg:col-span-5 flex flex-col items-center">
+              <div className="relative w-full max-w-sm bg-white p-4 sm:p-5 pb-8 rounded-sm shadow-polaroid border border-stone-200 rotate-[-1.5deg] hover:rotate-0 transition-transform duration-500">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 bg-gold-200/70 border border-gold-300 shadow-xs" />
+                
+                <div className="relative aspect-[4/5] w-full overflow-hidden bg-cream-100 rounded-xs border border-stone-200">
+                  <img
+                    src={photos[activePhoto].src}
+                    onError={(e) => { e.target.src = photos[activePhoto].fallback; }}
+                    alt="Lokesh and Komal"
+                    className="w-full h-full object-cover object-center"
+                  />
+                  <div className="absolute top-2 right-2 px-2.5 py-1 rounded-full bg-black/40 text-[10px] text-white tracking-wider uppercase font-medium">
+                    {photos[activePhoto].subtitle}
+                  </div>
+                </div>
+
+                <div className="mt-5 text-center px-2">
+                  <p className="font-alex text-2xl sm:text-3xl text-maroon-900 leading-tight">
+                    {photos[activePhoto].caption}
+                  </p>
+                  <p className="text-[11px] text-gold-700 uppercase tracking-widest font-semibold mt-1 flex items-center justify-center gap-1">
+                    <IconHeart className="w-3 h-3 text-maroon-600 fill-maroon-600" />
+                    Lokesh & Komal Forever
+                  </p>
+                </div>
+
+                <div className="flex items-center justify-center gap-2 mt-4">
+                  {photos.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActivePhoto(idx)}
+                      className={`h-2 rounded-full transition-all ${activePhoto === idx ? 'w-6 bg-gold-600' : 'w-2 bg-stone-300'}`}
+                      aria-label={`Photo ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Venue Card */}
+            <div className="lg:col-span-7 bg-cream-50/90 rounded-3xl border-2 border-gold-300 shadow-xl overflow-hidden p-6 sm:p-8">
+              <div className="flex items-center justify-between flex-wrap gap-2 mb-4">
+                <div>
+                  <span className="text-[11px] uppercase tracking-[0.25em] text-gold-700 font-bold block">
+                    The Celebration Destination
+                  </span>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-maroon-900">
+                    Our Cherished Venue
+                  </h3>
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gold-100 border border-gold-300 text-xs font-semibold text-gold-800 font-serif">
+                  <IconSparkles className="w-3.5 h-3.5 text-gold-600" />
+                  Royal Palace Setting
+                </span>
+              </div>
+
+              {/* Building Image */}
+              <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-md mb-6 border border-gold-300/50">
+                <img
+                  src="assets/venue.jpg"
+                  onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1544984243-ec57ea16fe25?auto=format&fit=crop&w=1200&q=80'; }}
+                  alt="Tivoli Lotus Court Palace Venue"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-maroon-950/80 via-transparent to-transparent flex items-end p-4 sm:p-5">
+                  <div>
+                    <p className="text-white font-serif text-lg sm:text-xl font-bold">
+                      Tivoli Lotus Court
+                    </p>
+                    <p className="text-gold-200 text-xs sm:text-sm font-medium flex items-center gap-1">
+                      <IconMapPin className="w-3.5 h-3.5 text-gold-400" />
+                      Sector 117 Main Rd, Noida
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-cream-100/90 rounded-2xl p-4 border border-gold-200 mb-6">
+                <div className="flex items-start gap-3">
+                  <div className="p-2.5 rounded-xl bg-gold-200 text-maroon-900 shrink-0 mt-0.5">
+                    <IconMapPin className="w-5 h-5 text-gold-800" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-serif text-base sm:text-lg font-bold text-maroon-900">
+                      Tivoli Lotus Court
+                    </h4>
+                    <p className="text-xs sm:text-sm text-maroon-800/80 leading-relaxed mt-0.5">
+                      Sector 117 Main Rd, Near Mahagun Moderne, Sector 117, Noida, Uttar Pradesh 201304
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Google Maps Embed Iframe */}
+              <div className="relative w-full aspect-[16/8] rounded-2xl overflow-hidden border border-gold-300 shadow-inner mb-6">
+                <iframe
+                  title="Tivoli Lotus Court Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14013.918804910903!2d77.382404!3d28.585375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cef0123456789%3A0x123456789abcdef!2sSector%20117%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row items-center gap-3">
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:flex-1 flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 hover:from-gold-700 hover:to-gold-700 text-maroon-950 font-serif font-bold text-sm tracking-wide shadow-md transition-all active:scale-98"
+                >
+                  <IconNavigation className="w-4 h-4 fill-maroon-950" />
+                  Get Directions on Google Maps
+                </a>
+
+                <button
+                  onClick={handleCopy}
+                  type="button"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-cream-100 hover:bg-cream-200 border border-gold-400 text-maroon-900 font-serif text-sm font-semibold transition-all active:scale-98"
+                >
+                  {copied ? (
+                    <>
+                      <IconCheck className="w-4 h-4 text-emerald-700" />
+                      <span className="text-emerald-800">Address Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <IconCopy className="w-4 h-4 text-gold-700" />
+                      <span>Copy Address</span>
+                    </>
+                  )}
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // --- Section 4: The Itinerary ---
+    const Itinerary = () => {
+      const [selectedDay, setSelectedDay] = useState('all');
+
+      const events = [
+        {
+          id: 1,
+          day: 'day1',
+          title: 'Shagun & Shades',
+          ceremony: 'Mehendi Ceremony',
+          date: 'Mon 27 Apr 2026, 12:00 PM',
+          dressCode: 'Shades of Green',
+          venue: 'The Palm Garden, Tivoli Lotus Court',
+          description: 'An afternoon adorned with intricate henna artistry, fragrant marigolds, and delightful folk rhythms.',
+          bgClass: 'bg-[#F0FDF4]',
+          borderClass: 'border-[#86EFAC]',
+          badgeClass: 'bg-[#DCFCE7] text-[#166534]',
+        },
+        {
+          id: 2,
+          day: 'day1',
+          title: 'Parampara & Pratishtha',
+          ceremony: 'Tilak Ceremony',
+          date: 'Mon 27 Apr 2026, 5:00 PM',
+          dressCode: 'Royal Ethnic',
+          venue: 'Darbar Banquet Hall, Tivoli Lotus Court',
+          description: 'The auspicious union of traditions and pious exchange of ancestral blessings from the elders.',
+          bgClass: 'bg-[#FFFBEB]',
+          borderClass: 'border-[#FDE68A]',
+          badgeClass: 'bg-[#FEF3C7] text-[#92400E]',
+        },
+        {
+          id: 3,
+          day: 'day1',
+          title: 'Sitaron Wali Shaam',
+          ceremony: 'Sangeet Ceremony',
+          date: 'Mon 27 Apr 2026, 7:00 PM',
+          dressCode: 'Glam and Glitter',
+          venue: 'Crystal Ballroom & Courtyard',
+          description: 'A dazzling evening of energetic Bollywood dances, live musical melodies, and celebration.',
+          bgClass: 'bg-[#FAF5FF]',
+          borderClass: 'border-[#E9D5FF]',
+          badgeClass: 'bg-[#F3E8FF] text-[#6B21A8]',
+        },
+        {
+          id: 4,
+          day: 'day2',
+          title: 'Phoolon Ki Mehfil',
+          ceremony: 'Haldi Ceremony',
+          date: 'Tue 28 Apr 2026, 10:00 AM',
+          dressCode: 'Yellow & Pink',
+          venue: 'Lotus Courtyard Lawn',
+          description: 'Bathed in auspicious turmeric paste, cascading marigold petals, laughter, and endless fun.',
+          bgClass: 'bg-[#FEFCE8]',
+          borderClass: 'border-[#FEF08A]',
+          badgeClass: 'bg-[#FEF9C3] text-[#854D0E]',
+        },
+        {
+          id: 5,
+          day: 'day2',
+          title: 'Together Forever',
+          ceremony: 'Shubh Vivah (Wedding)',
+          date: 'Tue 28 Apr 2026, Baraat 7 PM',
+          dressCode: 'Traditional Wear',
+          venue: 'The Grand Royal Mandap, Tivoli Lotus Court',
+          description: 'The solemn pheras around the sacred holy fire Agni as two souls unite into one eternal bond.',
+          bgClass: 'bg-[#FFF1F2]',
+          borderClass: 'border-[#FECDD3]',
+          badgeClass: 'bg-[#FFE4E6] text-[#9F1239]',
+        },
+        {
+          id: 6,
+          day: 'day2',
+          title: 'Bheegi Palkein',
+          ceremony: 'Vidaai Ceremony',
+          date: 'Wed 29 Apr, Early Morning',
+          dressCode: 'Ethnic Formal',
+          venue: 'Porch Entrance, Tivoli Lotus Court',
+          description: 'Sweet tears of fond memories and infinite showers of blessings as the bride steps into her new home.',
+          bgClass: 'bg-[#FFF7ED]',
+          borderClass: 'border-[#FED7AA]',
+          badgeClass: 'bg-[#FFEDD5] text-[#9A3412]',
+        },
+      ];
+
+      const filteredEvents = selectedDay === 'all' ? events : events.filter(e => e.day === selectedDay);
+
+      return (
+        <section id="itinerary" className="relative py-20 px-4 max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-xs uppercase tracking-[0.3em] text-gold-700 font-semibold">
+              The Wedding Festivities
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl text-maroon-900 font-semibold mt-1">
+              The Itinerary
+            </h2>
+            <OrnateDivider className="my-4" />
+
+            <div className="inline-flex p-1.5 rounded-full bg-cream-100 border border-gold-300 shadow-sm mt-6">
+              <button
+                onClick={() => setSelectedDay('all')}
+                className={`px-5 py-2 rounded-full text-xs font-serif font-semibold transition-all ${selectedDay === 'all' ? 'bg-gold-500 text-maroon-950 shadow-md' : 'text-maroon-800'}`}
+              >
+                All Events (6)
+              </button>
+              <button
+                onClick={() => setSelectedDay('day1')}
+                className={`px-5 py-2 rounded-full text-xs font-serif font-semibold transition-all ${selectedDay === 'day1' ? 'bg-gold-500 text-maroon-950 shadow-md' : 'text-maroon-800'}`}
+              >
+                Day 1 (Mon 27 Apr)
+              </button>
+              <button
+                onClick={() => setSelectedDay('day2')}
+                className={`px-5 py-2 rounded-full text-xs font-serif font-semibold transition-all ${selectedDay === 'day2' ? 'bg-gold-500 text-maroon-950 shadow-md' : 'text-maroon-800'}`}
+              >
+                Day 2 & 3 (Tue-Wed)
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            {filteredEvents.map((event) => (
+              <div
+                key={event.id}
+                className={`rounded-3xl border-2 ${event.borderClass} ${event.bgClass} shadow-md p-6 sm:p-8 transition-transform hover:-translate-y-1`}
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+                  <div>
+                    <h3 className="font-alex text-4xl sm:text-5xl text-maroon-900">
+                      {event.title}
+                    </h3>
+                    <p className="font-serif text-base font-bold text-maroon-800 mt-0.5">
+                      {event.ceremony}
+                    </p>
+                  </div>
+                  {event.dressCode && (
+                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${event.badgeClass}`}>
+                      Dress Code: {event.dressCode}
+                    </span>
+                  )}
+                </div>
+
+                <p className="text-xs sm:text-sm text-maroon-900/80 leading-relaxed font-sans mb-4">
+                  {event.description}
+                </p>
+
+                <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-maroon-900 bg-white/70 p-3 rounded-xl border border-stone-200">
+                  <div className="flex items-center gap-1.5">
+                    <IconCalendar className="w-4 h-4 text-gold-600" />
+                    <span>{event.date}</span>
+                  </div>
+                  <span>•</span>
+                  <div className="flex items-center gap-1.5">
+                    <IconMapPin className="w-4 h-4 text-gold-600" />
+                    <span>{event.venue}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      );
+    };
+
+    // --- Section 5: Interactive RSVP Form ---
+    const RsvpSection = () => {
+      const [formData, setFormData] = useState({
+        fullName: '',
+        phone: '',
+        attendance: 'accept',
+        events: ['both'],
+        emotionalGuess: 'Both',
+        weddingMood: 'All of it',
+        note: '',
+        advice: '',
+      });
+      const [submitted, setSubmitted] = useState(false);
+      const [errorMsg, setErrorMsg] = useState('');
+
+      const moods = ['The Food', 'Dance Floor', 'The Love', 'All of it'];
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!formData.fullName.trim()) {
+          setErrorMsg('Please enter your full name');
+          return;
+        }
+        if (!formData.phone.trim() || formData.phone.length < 8) {
+          setErrorMsg('Please enter a valid phone number');
+          return;
+        }
+        setErrorMsg('');
+        setSubmitted(true);
+
+        if (window.confetti) {
+          window.confetti({
+            particleCount: 90,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#C09325', '#991B2D', '#F4CBD1', '#166534'],
+          });
+        }
+      };
+
+      return (
+        <section id="rsvp" className="relative py-20 px-4 max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <span className="text-xs uppercase tracking-[0.3em] text-gold-700 font-semibold">
+              Your Presence Is Our Blessing
+            </span>
+            <h2 className="font-serif text-3xl sm:text-5xl text-maroon-900 font-semibold mt-1">
+              Celebrate With Us (RSVP)
+            </h2>
+            <OrnateDivider className="my-4" />
+          </div>
+
+          <div className="bg-cream-50/95 rounded-3xl border-2 border-gold-300 shadow-2xl p-6 sm:p-10 relative">
+            <OrnateCorner position="top-left" className="absolute top-2 left-2 w-10 h-10 text-gold-400 opacity-80" />
+            <OrnateCorner position="top-right" className="absolute top-2 right-2 w-10 h-10 text-gold-400 opacity-80" />
+
+            {!submitted ? (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* Two large toggle buttons */}
+                <div>
+                  <label className="block text-xs font-serif font-bold uppercase tracking-wider text-gold-800 mb-3 text-center">
+                    Will You Be Joining Our Celebrations?
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, attendance: 'accept' })}
+                      className={`p-4 rounded-2xl border-2 flex items-center justify-center gap-3 transition-all ${formData.attendance === 'accept' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold shadow-md' : 'border-stone-200 bg-white/70 text-stone-600'}`}
+                    >
+                      <IconCheck className="w-5 h-5 text-emerald-600" />
+                      <span className="font-serif text-base">Joyfully Accept</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, attendance: 'decline' })}
+                      className={`p-4 rounded-2xl border-2 flex items-center justify-center gap-3 transition-all ${formData.attendance === 'decline' ? 'border-maroon-700 bg-maroon-50 text-maroon-900 font-bold shadow-md' : 'border-stone-200 bg-white/70 text-stone-600'}`}
+                    >
+                      <IconHeart className="w-5 h-5 text-maroon-600" />
+                      <span className="font-serif text-base">Regrettably Decline</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Name & Phone */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className="block text-xs font-serif font-bold uppercase tracking-wider text-maroon-900 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                      placeholder="e.g. Ramesh & Sunita Verma"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-gold-300 focus:border-gold-600 outline-none text-sm text-maroon-900"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-serif font-bold uppercase tracking-wider text-maroon-900 mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+91 98765 43210"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-gold-300 focus:border-gold-600 outline-none text-sm text-maroon-900"
+                    />
+                  </div>
+                </div>
+
+                {/* Event selection checkboxes */}
+                <div>
+                  <label className="block text-xs font-serif font-bold uppercase tracking-wider text-maroon-900 mb-2">
+                    Event Selection
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {[
+                      { id: 'day1', label: 'Day 1' },
+                      { id: 'day2', label: 'Day 2' },
+                      { id: 'both', label: 'Both Days' },
+                    ].map((ev) => (
+                      <label key={ev.id} className="flex items-center gap-2 p-3 rounded-xl border border-gold-300 bg-white/80 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.events.includes(ev.id)}
+                          onChange={() => {
+                            let curr = [...formData.events];
+                            if (curr.includes(ev.id)) curr = curr.filter(x => x !== ev.id);
+                            else curr.push(ev.id);
+                            setFormData({ ...formData, events: curr });
+                          }}
+                          className="accent-gold-600 w-4 h-4"
+                        />
+                        <span className="font-serif text-sm font-bold text-maroon-900">{ev.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Make a Guess poll */}
+                <div className="bg-cream-100/90 rounded-2xl p-4 border border-gold-300">
+                  <label className="block text-xs font-serif font-bold uppercase tracking-wider text-maroon-900 mb-2">
+                    Make a Guess: Who will get emotional first? 🥺
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {['Lokesh', 'Komal', 'Both'].map((opt) => (
+                      <label key={opt} className={`flex items-center justify-center gap-1.5 p-2.5 rounded-xl border-2 cursor-pointer text-xs font-serif font-bold ${formData.emotionalGuess === opt ? 'border-maroon-700 bg-maroon-50 text-maroon-900' : 'border-stone-200 bg-white text-stone-700'}`}>
+                        <input
+                          type="radio"
+                          name="guess"
+                          checked={formData.emotionalGuess === opt}
+                          onChange={() => setFormData({ ...formData, emotionalGuess: opt })}
+                          className="accent-maroon-700"
+                        />
+                        <span>{opt}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Mood Tag Selector */}
+                <div>
+                  <label className="block text-xs font-serif font-bold uppercase tracking-wider text-maroon-900 mb-2">
+                    Your Wedding Mood
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {moods.map((m) => (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, weddingMood: m })}
+                        className={`px-4 py-2 rounded-full border text-xs font-serif font-semibold transition-all ${formData.weddingMood === m ? 'bg-gold-500 text-maroon-950 border-gold-600 shadow-sm font-bold' : 'bg-white border-gold-300 text-maroon-800'}`}
+                      >
+                        {m}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Notes & Advice */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-serif font-bold uppercase tracking-wider text-maroon-900 mb-1">
+                      Leave Us a Note
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.note}
+                      onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                      placeholder="Can't wait to dance! Any message for couple..."
+                      className="w-full px-3 py-2.5 rounded-xl bg-white border border-gold-300 text-xs text-maroon-900 outline-none resize-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-serif font-bold uppercase tracking-wider text-maroon-900 mb-1">
+                      Words for Forever (Advice)
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={formData.advice}
+                      onChange={(e) => setFormData({ ...formData, advice: e.target.value })}
+                      placeholder="Your secret to a happy lifelong marriage..."
+                      className="w-full px-3 py-2.5 rounded-xl bg-white border border-gold-300 text-xs text-maroon-900 outline-none resize-none"
+                    />
+                  </div>
+                </div>
+
+                {errorMsg && (
+                  <p className="text-xs text-rose-700 text-center font-bold">{errorMsg}</p>
+                )}
+
+                {/* Large submit button: "Send Love" */}
+                <div className="text-center pt-2">
+                  <button
+                    type="submit"
+                    className="w-full sm:w-auto min-w-[260px] px-8 py-3.5 rounded-2xl bg-gradient-to-r from-maroon-800 to-maroon-900 hover:from-maroon-900 hover:to-maroon-950 text-gold-200 font-serif font-bold text-base tracking-wider uppercase shadow-xl transition-all border border-gold-400"
+                  >
+                    Send Love 💖
+                  </button>
+                </div>
+
+              </form>
+            ) : (
+              <div className="text-center py-8 space-y-4">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-400 text-emerald-700 flex items-center justify-center mx-auto">
+                  <IconCheck className="w-8 h-8" />
+                </div>
+                <h3 className="font-alex text-4xl text-maroon-900">
+                  Thank You, {formData.fullName}!
+                </h3>
+                <p className="font-serif text-sm text-maroon-800 max-w-md mx-auto">
+                  {formData.attendance === 'accept'
+                    ? "We are thrilled that you will be sharing in our laughter, dance, and prayers at Tivoli Lotus Court!"
+                    : "We will miss having you in person, but your love and blessings mean everything to us."}
+                </p>
+                <button
+                  onClick={() => setSubmitted(false)}
+                  className="px-5 py-2 rounded-full bg-cream-200 border border-gold-400 text-maroon-900 text-xs font-serif font-bold uppercase tracking-wider"
+                >
+                  Edit Response
+                </button>
+              </div>
+            )}
+
+          </div>
+        </section>
+      );
+    };
+
+    // --- Section 6: Footer Section ---
+    const FooterSection = ({ onReopenEnvelope }) => {
+      const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      return (
+        <footer className="relative bg-gradient-to-b from-[#4A0E17] via-[#3B0811] to-[#25040A] text-gold-200 pt-16 pb-12 px-4 border-t-2 border-gold-400">
+          <div className="max-w-4xl mx-auto text-center">
+            
+            {/* Large Cursive Heading */}
+            <h2 className="font-alex text-6xl sm:text-8xl text-gold-300 drop-shadow mb-2">
+              Lokesh & Komal
+            </h2>
+            <p className="font-serif italic text-sm text-gold-200/80 max-w-md mx-auto">
+              "Two souls, two families, one eternal journey of love and togetherness."
+            </p>
+
+            <OrnateDivider className="my-8 opacity-60" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-10 text-left">
+              {/* With Compliments From */}
+              <div className="bg-maroon-950/60 rounded-3xl p-6 border border-gold-500/40">
+                <h3 className="font-serif text-xl font-bold text-gold-300 text-center mb-4">
+                  With Compliments From
+                </h3>
+                <div className="space-y-3 font-serif text-xs text-gold-100 text-center leading-relaxed">
+                  <p className="font-bold text-sm text-gold-200">Prasad & Sharma Families</p>
+                  <p>Grandparents: Smt. & Shri R. K. Prasad • Smt. & Shri M. L. Sharma</p>
+                  <p>Chacha - Chachi, Mama - Mami, Bua - Fufa</p>
+                  <p>Brothers, Sisters, Cousins, and near & dear ones</p>
+                </div>
+              </div>
+
+              {/* RSVP & Contacts */}
+              <div className="bg-maroon-950/60 rounded-3xl p-6 border border-gold-500/40">
+                <h3 className="font-serif text-xl font-bold text-gold-300 text-center mb-4">
+                  RSVP & Contact Details
+                </h3>
+                <div className="space-y-3">
+                  {[
+                    { name: 'Shri Rajendra Prasad', rel: "Groom's Father", phone: '+91 98765 43210', wa: '919876543210' },
+                    { name: 'Shri Suresh Sharma', rel: "Bride's Father", phone: '+91 98123 45678', wa: '919812345678' },
+                  ].map((c, i) => (
+                    <div key={i} className="bg-maroon-900/60 rounded-xl p-3 border border-gold-500/30 flex items-center justify-between">
+                      <div>
+                        <p className="font-serif text-sm font-bold text-gold-100">{c.name}</p>
+                        <p className="text-[11px] text-gold-300/70">{c.rel}</p>
+                      </div>
+                      <div className="flex gap-2">
+                        <a href={`tel:${c.phone.replace(/\s+/g, '')}`} className="px-3 py-1 rounded-full bg-gold-500/20 text-gold-200 text-xs font-bold border border-gold-400 flex items-center gap-1">
+                          <IconPhone className="w-3 h-3" /> Call
+                        </a>
+                        <a href={`https://wa.me/${c.wa}`} target="_blank" rel="noopener noreferrer" className="px-3 py-1 rounded-full bg-emerald-600/30 text-emerald-200 text-xs font-bold border border-emerald-400 flex items-center gap-1">
+                          <IconMessageSquare className="w-3 h-3" /> WhatsApp
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-4 text-center">
+                  <button onClick={onReopenEnvelope} className="text-xs text-gold-300 hover:underline font-serif">
+                    Re-open Invitation Envelope ✉️
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Ayyu & Advait Note */}
+            <div className="my-8 max-w-lg mx-auto bg-gold-900/40 rounded-2xl p-4 border-2 border-dashed border-gold-400 text-center">
+              <p className="font-alex text-2xl sm:text-3xl text-gold-300 font-bold">
+                "Mere Chacha ki shaadi mein jalool jalool aana!"
+              </p>
+              <p className="font-serif text-xs text-gold-200/90 font-semibold tracking-wider uppercase mt-1">
+                — Ayyu & Advait ❤️
+              </p>
+            </div>
+
+            {/* Copyright & Date/Venue Summary */}
+            <div className="pt-6 border-t border-gold-500/20 text-xs font-serif text-gold-300/80 space-y-2">
+              <p>19th & 27 - 29 April 2026 • Tivoli Lotus Court, Sector 117 Main Rd, Noida</p>
+              <p className="text-[11px] text-gold-400/60 font-sans">
+                © 2026 Lokesh & Komal. Designed with love and devotion.
+              </p>
+              <button onClick={scrollToTop} className="mt-2 inline-block px-4 py-1.5 rounded-full bg-gold-400/10 border border-gold-400/30 text-gold-300 text-xs">
+                Back to Top ↑
+              </button>
+            </div>
+
+          </div>
+        </footer>
+      );
+    };
+
+    // --- Main App Component ---
+    function App() {
+      const [envelopeOpened, setEnvelopeOpened] = useState(false);
+      const [petalsEnabled, setPetalsEnabled] = useState(true);
+
+      return (
+        <div className="min-h-screen bg-[#FAF6EF] text-[#480B16] font-sans relative selection:bg-gold-300 selection:text-maroon-900">
+          
+          {/* Section 1: Splash Screen Envelope */}
+          <SplashScreen
+            isOpen={envelopeOpened}
+            onOpen={() => setEnvelopeOpened(true)}
+          />
+
+          {/* Falling Petals Background */}
+          <FallingPetals enabled={petalsEnabled} />
+
+          {/* Ambient Music Player */}
+          <MusicPlayer />
+
+          {/* Sticky Header Nav */}
+          <header className="fixed top-0 inset-x-0 z-40 px-4 py-3">
+            <div className="max-w-4xl mx-auto rounded-full bg-cream-50/85 backdrop-blur-md border border-gold-300 shadow-sm px-4 py-2 flex items-center justify-between">
+              <a href="#blessings" className="font-alex text-2xl sm:text-3xl text-maroon-900">
+                Lokesh & Komal
+              </a>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setPetalsEnabled(!petalsEnabled)}
+                  className="px-2.5 py-1 rounded-full border border-gold-300 text-xs font-serif text-maroon-900 bg-cream-100"
+                >
+                  {petalsEnabled ? '🌸 Petals On' : '🌸 Petals Off'}
+                </button>
+                <button
+                  onClick={() => setEnvelopeOpened(false)}
+                  className="px-3 py-1 rounded-full bg-gold-500 text-maroon-950 text-xs font-serif font-bold shadow-xs"
+                >
+                  Envelope ✉️
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* Main Sections */}
+          <main className="pt-16">
+            <HeroSection />
+            <MomentsAndVenue />
+            <Itinerary />
+            <RsvpSection />
+          </main>
+
+          {/* Section 6: Footer */}
+          <FooterSection onReopenEnvelope={() => setEnvelopeOpened(false)} />
+
+        </div>
+      );
+    }
+
+    // 4. Correct Rendering at end of script tag
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+
+</body>
+</html>
